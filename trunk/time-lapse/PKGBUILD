@@ -1,0 +1,23 @@
+# Contributor: Richard Macwan <rich4rd.macwan@gmail.com>
+pkgname=timelapse
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Timelapse is used to generate timelapse videos from webcams/long video files"
+url=""
+arch=('i686' 'x86_64')
+license=""
+depends=('opencv')
+makedepends=('cmake')
+#source=("http://razor-qt.org/downloads/razorqt-${pkgver}.tar.bz2")
+
+build() {
+  cd "${srcdir}" /${pkgname}-${pkgver}"
+  cmake ./ 
+  make
+}
+ 
+package() {
+  cd "${srcdir}" /${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+}
+
