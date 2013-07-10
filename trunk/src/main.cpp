@@ -6,6 +6,7 @@
 int main(int argc, char* argv[]){
     //Structure to hold an image
     cv::Mat frame;
+    std::string outputFileName="out.avi";
     //Reference to a video source e.g. webcam
     cv::VideoCapture cap;
     int prevtime=0;
@@ -13,7 +14,10 @@ int main(int argc, char* argv[]){
     int interval=DEFAULT_SNAPSHOT_INTERVAL;
 
     if(argc>1){
-        if(argc==3){
+        if(argc>=4){
+            outputFileName=argv[3];
+        }
+        if(argc>=3){
             interval = atoi(argv[1]);
             //std::cout<<interval;
             if(interval<=0){
@@ -43,7 +47,7 @@ int main(int argc, char* argv[]){
 
     cap>>frame;
     if(frame.data){
-        cv::VideoWriter writer("out.avi",CV_FOURCC('M','P','4','2'),30,frame.size(),true);
+        cv::VideoWriter writer(outputFileName.c_str(),CV_FOURCC('M','P','4','2'),30,frame.size(),true);
         if(!writer.isOpened()){
             std::cout<<"Failed to open VideoWriter!"<<std::endl;
             return -1;
@@ -81,7 +85,7 @@ int main(int argc, char* argv[]){
            std::cout<<std::endl;
            if(isWebcam)   std::cout<<"Webcam not found!"<<std::endl;
             else std::cout<<"Invalid source!"<<std::endl;
-        std::cout<<"Usage : timelapse [snapshotinterval=10] [video file]"<<std::endl;
-        std::cout<<"To load the default webcam, run timelapse without an argument."<<std::endl;
+        std::cout<<"Usage : timelapse [snapshotinterval=10] [video file] [outputfileName.avi=out.avi]"<<std::endl;
+        std::cout<<"To load the default webcam, run timelapse without an argument. If you are providing an output filename, make sure it's extension is .avi"<<std::endl;
     }
 }
