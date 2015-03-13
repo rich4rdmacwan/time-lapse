@@ -1,0 +1,1 @@
+This software uses opencv to create timelapse video from your webcam or long videos. It does not need any folder to save images like other timelapse softwares.
